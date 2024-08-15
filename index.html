@@ -19,8 +19,8 @@
                 <p id="timer" class="counter-no pl-3">0<span class="seconds"> seconds</span></p>
             </div>
             <div id="speedTypingTest" class="mt-4">
-                <p id="quoteDisplay" class="text-center quote-text">Loading...</p>
-                <textarea id="quoteInput" class="form-control mt-3" rows="5" placeholder="Type the quote here"></textarea>
+                <p id="quoteDisplay" class="text-center quote-text">Press "Start" when you are ready.</p>
+                <textarea id="quoteInput" class="form-control mt-3" rows="5" placeholder="Type the quote here" disabled></textarea>
                 <div class="progress mt-3">
                     <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;"></div>
                 </div>
@@ -32,7 +32,8 @@
             </div>
             <p id="result" class="text-center mt-3"></p>
             <div class="d-flex justify-content-center mt-3">
-                <button id="submitBtn" class="btn btn-primary mx-2">Submit</button>
+                <button id="startBtn" class="btn btn-success mx-2">Start</button>
+                <button id="submitBtn" class="btn btn-primary mx-2" disabled>Submit</button>
                 <button id="resetBtn" class="btn btn-secondary mx-2">Reset</button>
             </div>
         </div>
