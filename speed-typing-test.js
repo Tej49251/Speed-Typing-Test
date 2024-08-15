@@ -1,6 +1,7 @@
 const timerElement = document.getElementById("timer");
 const quoteDisplayElement = document.getElementById("quoteDisplay");
 const quoteInputElement = document.getElementById("quoteInput");
+const startButton = document.getElementById("startBtn");
 const submitButton = document.getElementById("submitBtn");
 const resetButton = document.getElementById("resetBtn");
 const resultElement = document.getElementById("result");
@@ -9,8 +10,11 @@ const progressBar = document.getElementById("progressBar");
 
 let counter = 0;
 let counterInterval;
+let timerStarted = false;
 
 function startCounter() {
+    if (timerStarted) return; // Prevent multiple timers
+    timerStarted = true;
     counter = 0;
     clearInterval(counterInterval);
     counterInterval = setInterval(() => {
@@ -21,6 +25,7 @@ function startCounter() {
 
 function stopCounter() {
     clearInterval(counterInterval);
+    timerStarted = false;
 }
 
 function updateProgressBar() {
@@ -37,7 +42,8 @@ function fetchNewQuote() {
         .then(data => {
             spinnerElement.classList.add("d-none");
             quoteDisplayElement.textContent = data.content;
-            startCounter();
+            quoteInputElement.disabled = false;
+            startButton.disabled = false; // Enable the start button
         })
         .catch(error => {
             spinnerElement.classList.add("d-none");
@@ -45,6 +51,14 @@ function fetchNewQuote() {
             console.error("Error fetching quote:", error);
         });
 }
+
+startButton.addEventListener("click", () => {
+    if (!timerStarted) {
+        startCounter();
+        startButton.disabled = true; // Disable the start button
+        submitButton.disabled = false; // Enable the submit button
+    }
+});
 
 quoteInputElement.addEventListener("input", updateProgressBar);
 
@@ -55,6 +69,8 @@ resetButton.addEventListener("click", () => {
     resultElement.textContent = "";
     progressBar.style.width = "0%";
     timerElement.textContent = "0";
+    startButton.disabled = false; // Enable the start button for new test
+    submitButton.disabled = true; // Disable submit button until the test is started
 });
 
 submitButton.addEventListener("click", () => {
